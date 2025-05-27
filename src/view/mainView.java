@@ -4,25 +4,27 @@
  */
 package view;
 
-import DAO.movieDao;
 import controller.movieController;
-import model.ModelTabelDataMovie;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 
 /**
  *
  * @author Acer
  */
+
 public class mainView extends javax.swing.JFrame {
-    private movieController controller;
-    
+
     /**
      * Creates new form mainView
      */
+    movieController dmc;
     public mainView() {
         initComponents();
-        controller = new movieController(this);
+        dmc = new movieController(this);
+        dmc.isiTable();
     }
-        
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,201 +35,213 @@ public class mainView extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
-        jLabelJudul = new javax.swing.JLabel();
-        jTextFieldJudul = new javax.swing.JTextField();
-        jLabelAlur = new javax.swing.JLabel();
-        jTextFieldAlur = new javax.swing.JTextField();
-        jLabelPenokohan = new javax.swing.JLabel();
-        jTextFieldPenokohan = new javax.swing.JTextField();
-        jLabelAkting = new javax.swing.JLabel();
-        jTextFieldAkting = new javax.swing.JTextField();
-        jButtonTambah = new javax.swing.JButton();
-        jButtonUpdate = new javax.swing.JButton();
-        jButtonDelete = new javax.swing.JButton();
-        jButtonClear = new javax.swing.JButton();
+        tabelDataMovie = new javax.swing.JTable();
+        jLJudul = new javax.swing.JLabel();
+        jTFJudul = new javax.swing.JTextField();
+        jLPenokohan = new javax.swing.JLabel();
+        jTFPenokohan = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jTFAlur = new javax.swing.JTextField();
+        jLAkting = new javax.swing.JLabel();
+        jTFAkting = new javax.swing.JTextField();
+        jBTambah = new javax.swing.JButton();
+        jBUpdate = new javax.swing.JButton();
+        jTFId = new javax.swing.JTextField();
+        jTFId2 = new javax.swing.JTextField();
+        jBDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabelDataMovie.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Judul", "Alur", "Penokohan", "Akting", "Rating"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        tabelDataMovie.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tabelDataMovieMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tabelDataMovie);
 
-        jLabelJudul.setText("Judul");
+        jLJudul.setText("Judul");
 
-        jTextFieldJudul.setText("0");
-        jTextFieldJudul.addActionListener(new java.awt.event.ActionListener() {
+        jTFJudul.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldJudulActionPerformed(evt);
+                jTFJudulActionPerformed(evt);
             }
         });
 
-        jLabelAlur.setText("Alur");
+        jLPenokohan.setText("Penokohan");
 
-        jTextFieldAlur.setText("0");
-        jTextFieldAlur.addActionListener(new java.awt.event.ActionListener() {
+        jLabel1.setText("Alur");
+
+        jLAkting.setText("Akting");
+
+        jBTambah.setText("Tambah");
+        jBTambah.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldAlurActionPerformed(evt);
+                jBTambahActionPerformed(evt);
             }
         });
 
-        jLabelPenokohan.setText("penokohan");
-
-        jTextFieldPenokohan.setText("0");
-        jTextFieldPenokohan.addActionListener(new java.awt.event.ActionListener() {
+        jBUpdate.setText("Update");
+        jBUpdate.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jBUpdateMouseClicked(evt);
+            }
+        });
+        jBUpdate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldPenokohanActionPerformed(evt);
+                jBUpdateActionPerformed(evt);
             }
         });
 
-        jLabelAkting.setText("Akting");
-
-        jTextFieldAkting.setText("0");
-        jTextFieldAkting.addActionListener(new java.awt.event.ActionListener() {
+        jTFId.setEditable(false);
+        jTFId.setUI(null);
+        jTFId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldAktingActionPerformed(evt);
+                jTFIdActionPerformed(evt);
             }
         });
 
-        jButtonTambah.setText("Tambah");
-        jButtonTambah.addActionListener(new java.awt.event.ActionListener() {
+        jTFId2.setEditable(false);
+        jTFId2.setText("id");
+        jTFId2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonTambahActionPerformed(evt);
+                jTFId2ActionPerformed(evt);
             }
         });
 
-        jButtonUpdate.setText("Update");
-        jButtonUpdate.addActionListener(new java.awt.event.ActionListener() {
+        jBDelete.setText("Delete");
+        jBDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonUpdateActionPerformed(evt);
+                jBDeleteActionPerformed(evt);
             }
         });
-
-        jButtonDelete.setText("Delete");
-        jButtonDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonDeleteActionPerformed(evt);
-            }
-        });
-
-        jButtonClear.setText("Clear");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 431, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldJudul)
-                    .addComponent(jLabelJudul)
-                    .addComponent(jLabelAlur)
-                    .addComponent(jTextFieldAlur)
-                    .addComponent(jLabelPenokohan)
-                    .addComponent(jTextFieldPenokohan)
-                    .addComponent(jLabelAkting)
-                    .addComponent(jTextFieldAkting)
-                    .addComponent(jButtonTambah, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
-                    .addComponent(jButtonUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButtonClear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(34, Short.MAX_VALUE))
+                    .addComponent(jLJudul)
+                    .addComponent(jTFJudul)
+                    .addComponent(jLPenokohan)
+                    .addComponent(jLabel1)
+                    .addComponent(jTFAlur)
+                    .addComponent(jTFPenokohan)
+                    .addComponent(jLAkting)
+                    .addComponent(jTFAkting)
+                    .addComponent(jBTambah, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                    .addComponent(jBUpdate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jTFId2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jBDelete, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 18, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jTFId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabelJudul)
-                        .addGap(1, 1, 1)
-                        .addComponent(jTextFieldJudul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelAlur)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldAlur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelPenokohan)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldPenokohan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelAkting)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldAkting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButtonTambah)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonUpdate)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonDelete)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonClear)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addComponent(jTFId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 72, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(jLJudul)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTFJudul, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTFAlur, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLPenokohan)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTFPenokohan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLAkting)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTFAkting, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBTambah)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBUpdate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jBDelete)
+                .addGap(45, 45, 45)
+                .addComponent(jTFId2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldJudulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldJudulActionPerformed
+    private void jTFJudulActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFJudulActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldJudulActionPerformed
+    }//GEN-LAST:event_jTFJudulActionPerformed
 
-    private void jTextFieldAlurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAlurActionPerformed
+    private void jBTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBTambahActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldAlurActionPerformed
+        dmc.insert();
+        dmc.isiTable();
+    }//GEN-LAST:event_jBTambahActionPerformed
 
-    private void jTextFieldPenokohanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPenokohanActionPerformed
+    private void jBUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBUpdateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldPenokohanActionPerformed
+        dmc.update();
+        dmc.isiTable();
+    }//GEN-LAST:event_jBUpdateActionPerformed
 
-    private void jButtonTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTambahActionPerformed
-        controller.insert();
-    }//GEN-LAST:event_jButtonTambahActionPerformed
-
-    private void jTextFieldAktingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAktingActionPerformed
+    private void jTFIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFIdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldAktingActionPerformed
+    }//GEN-LAST:event_jTFIdActionPerformed
 
-    private void jButtonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateActionPerformed
-        controller.update();
-    }//GEN-LAST:event_jButtonUpdateActionPerformed
+    private void jBUpdateMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jBUpdateMouseClicked
+        
+    }//GEN-LAST:event_jBUpdateMouseClicked
 
-    private void jButtonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteActionPerformed
-        controller.delete();
-    }//GEN-LAST:event_jButtonDeleteActionPerformed
-    
-    public String getJudul() {
-        return jTextFieldJudul.getText();
+    private void jTFId2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTFId2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTFId2ActionPerformed
+
+    private void jBDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBDeleteActionPerformed
+        // TODO add your handling code here:
+        dmc.delete();
+        dmc.isiTable();
+    }//GEN-LAST:event_jBDeleteActionPerformed
+
+    private void tabelDataMovieMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tabelDataMovieMouseClicked
+        // TODO add your handling code here:
+        int baris = tabelDataMovie.getSelectedRow();
+        jTFId2.setText(tabelDataMovie.getValueAt(baris, 0).toString());
+        jTFJudul.setText(tabelDataMovie.getValueAt(baris, 1).toString());
+        jTFAlur.setText(tabelDataMovie.getValueAt(baris, 2).toString());
+        jTFPenokohan.setText(tabelDataMovie.getValueAt(baris, 3).toString());
+        jTFAkting.setText(tabelDataMovie.getValueAt(baris, 4).toString());
+    }//GEN-LAST:event_tabelDataMovieMouseClicked
+
+    public JTextField getjTFId2() {
+        return jTFId2;
     }
-    public double getAlur() {
-        return Double.parseDouble(jTextFieldAlur.getText());
+
+    public void setjTFId2(JTextField jTFId2) {
+        this.jTFId2 = jTFId2;
     }
-    public double getPenokohan() {
-        return Double.parseDouble(jTextFieldPenokohan.getText());
-    }
-    public double getAkting() {
-        return Double.parseDouble(jTextFieldAkting.getText());
-    }
-    public void setTableModel(ModelTabelDataMovie model) {
-        jTable1.setModel(model);
-    }
-    public int getSelectedRow() {
-        return jTable1.getSelectedRow();
-    }
+
     /**
      * @param args the command line arguments
      */
@@ -264,19 +278,71 @@ public class mainView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonClear;
-    private javax.swing.JButton jButtonDelete;
-    private javax.swing.JButton jButtonTambah;
-    private javax.swing.JButton jButtonUpdate;
-    private javax.swing.JLabel jLabelAkting;
-    private javax.swing.JLabel jLabelAlur;
-    private javax.swing.JLabel jLabelJudul;
-    private javax.swing.JLabel jLabelPenokohan;
+    private javax.swing.JButton jBDelete;
+    private javax.swing.JButton jBTambah;
+    private javax.swing.JButton jBUpdate;
+    private javax.swing.JLabel jLAkting;
+    private javax.swing.JLabel jLJudul;
+    private javax.swing.JLabel jLPenokohan;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextFieldAkting;
-    private javax.swing.JTextField jTextFieldAlur;
-    private javax.swing.JTextField jTextFieldJudul;
-    private javax.swing.JTextField jTextFieldPenokohan;
+    private javax.swing.JTextField jTFAkting;
+    private javax.swing.JTextField jTFAlur;
+    private javax.swing.JTextField jTFId;
+    private javax.swing.JTextField jTFId2;
+    private javax.swing.JTextField jTFJudul;
+    private javax.swing.JTextField jTFPenokohan;
+    private javax.swing.JTable tabelDataMovie;
     // End of variables declaration//GEN-END:variables
+
+    public JTable getTabelDataMovie() {
+        return tabelDataMovie;
+    }
+
+    public void setTabelDataMovie(JTable tabelDataMovie) {
+        this.tabelDataMovie = tabelDataMovie;
+    }
+
+    public JTextField getjTFAkting() {
+        return jTFAkting;
+    }
+
+    public void setjTFAkting(JTextField jTFAkting) {
+        this.jTFAkting = jTFAkting;
+    }
+
+    public JTextField getjTFAlur() {
+        return jTFAlur;
+    }
+
+    public void setjTFAlur(JTextField jTFAlur) {
+        this.jTFAlur = jTFAlur;
+    }
+
+    public JTextField getjTFJudul() {
+        return jTFJudul;
+    }
+
+    public void setjTFJudul(JTextField jTFJudul) {
+        this.jTFJudul = jTFJudul;
+    }
+
+    public JTextField getjTFPenokohan() {
+        return jTFPenokohan;
+    }
+
+    public void setjTFPenokohan(JTextField jTFPenokohan) {
+        this.jTFPenokohan = jTFPenokohan;
+    }
+
+    public JTextField getjTFId() {
+        return jTFId;
+    }
+
+    public void setjTFId(JTextField jTFId) {
+        this.jTFId = jTFId;
+    }
+
+    
+
 }

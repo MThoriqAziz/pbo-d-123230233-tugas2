@@ -1,62 +1,59 @@
 
 package controller;
 
-import DAO.implMovieDao;
-import DAO.movieDao;
-import model.DataMovie;
-import view.mainView;
-import model.ModelTabelDataMovie;
 import java.util.List;
+import DaoDataMovie.DataMovieDao;
+import DaoImplement.DataMovieImplement;
+import model.*;
+import view.mainView;
+
 
 public class movieController {
-    mainView view;
-    movieDao dao; // pakai interface
-    List<DataMovie> list;
+    mainView frame;
+    DataMovieImplement implDataMovie;
+    List<DataMovie> dm;
 
-    public movieController(mainView view) {
-        this.view = view;
-        dao = new implMovieDao(); // pakai implementasi konkret
+    public movieController(mainView frame) {
+        this.frame = frame;
+        implDataMovie = new DataMovieDao(); 
+        dm = implDataMovie.getAll();
     }
 
-    public void loadTable() {
-        list = dao.getAll(); // sekarang sudah benar
-        model.ModelTabelDataMovie model = new ModelTabelDataMovie(list);
-        view.setTableModel(model);
+    public void isiTable() {
+        dm = implDataMovie.getAll();
+        model.ModelTabelDataMovie mp = new ModelTabelDataMovie(dm);
+        frame.getTabelDataMovie().setModel(mp);
     }
 
     public void insert() {
-        DataMovie m = new DataMovie();
-        m.setJudul(view.getJudul());
-        m.setAlur(view.getAlur());
-        m.setPenokohan(view.getPenokohan());
-        m.setAkting(view.getAkting());
-        m.setRating((m.getAlur() + m.getPenokohan() + m.getAkting()) / 3);
-
-        dao.insert(m);
-        loadTable();
+        DataMovie dm = new DataMovie();
+        dm.setJudul(frame.getjTFJudul().getText());
+        double alur = Double.parseDouble(frame.getjTFAlur().getText());
+        dm.setAlur(alur);
+        double penokohan = Double.parseDouble(frame.getjTFPenokohan().getText());
+        dm.setPenokohan(penokohan);
+        double akting = Double.parseDouble(frame.getjTFAkting().getText());
+        dm.setAkting(akting);
+        dm.setRating((dm.getAlur() + dm.getPenokohan() + dm.getAkting()) / 3);
+        implDataMovie.insert(dm);
     }
 
-    public void update() {
-        int selectedRow = view.getSelectedRow();
-        if (selectedRow != -1) {
-            DataMovie m = list.get(selectedRow);
-            m.setJudul(view.getJudul());
-            m.setAlur(view.getAlur());
-            m.setPenokohan(view.getPenokohan());
-            m.setAkting(view.getAkting());
-            m.setRating((m.getAlur() + m.getPenokohan() + m.getAkting()) / 3);
-
-            dao.update(m);
-            loadTable();
-        }
+    public void update(){
+        DataMovie dm = new DataMovie();
+        dm.setJudul(frame.getjTFJudul().getText());
+        double alur = Double.parseDouble(frame.getjTFAlur().getText());
+        dm.setAlur(alur);
+        double penokohan = Double.parseDouble(frame.getjTFPenokohan().getText());
+        dm.setPenokohan(penokohan);
+        double akting = Double.parseDouble(frame.getjTFAkting().getText());
+        dm.setAkting(akting);
+        dm.setRating((dm.getAlur() + dm.getPenokohan() + dm.getAkting()) / 3);
+        dm.setId(Integer.parseInt(frame.getjTFId2().getText()));
+        implDataMovie.update(dm);
     }
-
-    public void delete() {
-        int selectedRow = view.getSelectedRow();
-        if (selectedRow != -1) {
-            int id = list.get(selectedRow).getId();
-            dao.delete(id);
-            loadTable();
-        }
+    
+    public void delete(){
+        int id = Integer.parseInt(frame.getjTFId2().getText());
+        implDataMovie.delete(id);
     }
 }
